@@ -27,16 +27,17 @@ const UserForm: React.FC<Props> = ({onSubmit}) => {
 
     const onFormSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-
-        onSubmit({
-            ...userForm,
-        });
-        setUserForm({
-            name: '',
-            email: '',
-            isActive: false,
-            role: '',
-        });
+        if(userForm.name!=='' && userForm.email!==''&& userForm.role!==''){
+            onSubmit({
+                ...userForm,
+            });
+            setUserForm({
+                name: '',
+                email: '',
+                isActive: false,
+                role: '',
+            });
+        }
     };
 
 
