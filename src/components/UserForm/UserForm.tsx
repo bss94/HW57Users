@@ -1,51 +1,67 @@
 import React, {useState} from 'react';
 import {User} from '../../types';
 
-interface Props{
-
+interface Props {
+    onSubmit: (user: User) => void;
 }
-const UserForm:React.FC<Props> = ({}) => {
-    const [userForm,setUserForm]=useState<User>({
-        name:'',
-        email:'',
-        isActive:false,
-        role:'',
+
+const UserForm: React.FC<Props> = ({onSubmit}) => {
+    const [userForm, setUserForm] = useState<User>({
+        name: '',
+        email: '',
+        isActive: false,
+        role: '',
     });
-    const changeUser=(event:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)=>{
-        setUserForm((prevState) =>({
+    const changeUser = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setUserForm((prevState) => ({
             ...prevState,
-            [event.target.name]:event.target.value,
+            [event.target.name]: event.target.value,
         }));
     };
-    const changeActive=(event:React.ChangeEvent<HTMLInputElement>)=>{
-        setUserForm((prevState) =>({
-        ...prevState,
-        [event.target.name]:!prevState.isActive,
-    }));
-    }
+    const changeActive = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUserForm((prevState) => ({
+            ...prevState,
+            [event.target.name]: !prevState.isActive,
+        }));
+    };
+
+    const onFormSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+
+        onSubmit({
+            ...userForm,
+        });
+        setUserForm({
+            name: '',
+            email: '',
+            isActive: false,
+            role: '',
+        });
+    };
 
 
     return (
-        <form>
-            <h4>add new user</h4>
+        <form onSubmit={onFormSubmit}>
+            <h4>Add new user</h4>
             <div className="form-group text-start my-3">
                 <label htmlFor="name">Name</label>
                 <input
-                    type='text'
-                    name='name'
-                    id='name'
+                    type="text"
+                    name="name"
+                    id="name"
                     value={userForm.name}
-                    className='form-control'
+                    className="form-control"
                     onChange={changeUser}
                 />
             </div>
             <div className="form-group text-start my-3">
                 <label htmlFor="email">Email</label>
                 <input
-                    name='email'
-                    id='email'
+                    type="email"
+                    name="email"
+                    id="email"
                     value={userForm.email}
-                    className='form-control'
+                    className="form-control"
                     onChange={changeUser}
                 />
             </div>

@@ -1,6 +1,6 @@
-export interface User{
-    name:string;
-    email:string;
-    isActive:boolean;
-    role:string;
+export interface User {
+    name: string;
+    email: string;
+    isActive: boolean;
+    role: string;
 }
